@@ -18,8 +18,8 @@ class LaraflowHistoryManager
         $model = $sm->getObject();
 
         $model->addHistoryLine([
-            "transition" => $event->getTransition(),
-            "to" => $sm->getActualStep()
+            'transition' => $event->getTransition(),
+            'to' => $sm->getActualStep()
         ]);
     }
 }

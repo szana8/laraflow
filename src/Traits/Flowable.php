@@ -8,19 +8,19 @@ use szana8\Laraflow\LaraflowHistory;
 trait Flowable
 {
     /**
-     * StateMachine
+     * StateMachine.
      */
     protected $laraflowInstance;
 
     /**
-     * Create a singleton StateMachine instance form the specified config
+     * Create a singleton StateMachine instance form the specified config.
      *
      * @return Laraflow
      * @throws \Exception
      */
     public function laraflowInstance()
     {
-        if ( ! $this->laraflowInstance ) {
+        if (! $this->laraflowInstance) {
             $this->laraflowInstance = new Laraflow($this, $this->getLaraflowStates());
         }
 
@@ -29,7 +29,7 @@ trait Flowable
 
     /**
      * Return the actual state of
-     * the object
+     * the object.
      *
      * @return mixed
      * @throws \Exception
@@ -40,7 +40,7 @@ trait Flowable
     }
 
     /**
-     * Apply the specified transition
+     * Apply the specified transition.
      *
      * @param $transition
      * @return mixed
@@ -60,14 +60,15 @@ trait Flowable
      */
     protected function getStepName($state)
     {
-        if (!isset ($this->laraflowInstance()->getConfiguration()['steps'][$state]['text']))
+        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
             return $state;
+        }
 
         return $this->laraflowInstance()->getConfiguration()['steps'][$state]['text'];
     }
 
     /**
-     * Check the transition is possible or not
+     * Check the transition is possible or not.
      *
      * @param $transition
      * @return mixed
@@ -79,7 +80,7 @@ trait Flowable
     }
 
     /**
-     * Return the transition history of the model
+     * Return the transition history of the model.
      *
      * @return mixed
      */
@@ -89,7 +90,7 @@ trait Flowable
     }
 
     /**
-     * Add a history line to the table with the model name and record id
+     * Add a history line to the table with the model name and record id.
      *
      * @param array $transitionData
      * @return mixed

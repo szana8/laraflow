@@ -2,7 +2,6 @@
 
 namespace szana8\Laraflow\Traits;
 
-use App\TestPreCallback;
 use szana8\Laraflow\Events\LaraflowEvents;
 use szana8\Laraflow\Listeners\LaraflowHistoryManager;
 
