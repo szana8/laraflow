@@ -3,7 +3,7 @@ Laraflow is a standard workflow package for Laravel Eloquent objects. You can de
 
 ### Installation (via composer)
 ```php
-composer install szana8/Laraflow
+composer require szana8/Laraflow
 ```
 You need to crate the neccessary table for the historical data:
 ```php
