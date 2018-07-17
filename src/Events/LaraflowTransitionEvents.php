@@ -20,10 +20,10 @@ class LaraflowTransitionEvents
     /**
      * @var array
      */
-    protected $config;
+    protected $configuration;
 
     /**
-     * @var StateMachineInterface
+     * @var
      */
     protected $workflow;
 
@@ -35,15 +35,15 @@ class LaraflowTransitionEvents
     /**
      * @param string $transition Name of the transition being applied
      * @param string $fromState State from which the transition is applied
-     * @param array $config Configuration of the transition
+     * @param array $configuration Configuration of the transition
      * @param LaraflowInterface $workflow
      */
-    public function __construct($transition, $fromState, array $config, LaraflowInterface $workflow)
+    public function __construct($transition, $fromState, array $configuration, LaraflowInterface $workflow)
     {
-        $this->transition   = $transition;
-        $this->fromState    = $fromState;
-        $this->configuration= $config;
-        $this->workflow     = $workflow;
+        $this->transition = $transition;
+        $this->fromState = $fromState;
+        $this->configuration = $configuration;
+        $this->workflow = $workflow;
 
         return $this;
     }
@@ -65,7 +65,7 @@ class LaraflowTransitionEvents
     }
 
     /**
-     * @return StateMachineInterface
+     * @return LaraflowInterface
      */
     public function getStateMachine()
     {
@@ -85,7 +85,7 @@ class LaraflowTransitionEvents
      */
     public function setRejected($reject = true)
     {
-        $this->rejected = (bool) $reject;
+        $this->rejected = (bool)$reject;
     }
 
     /**

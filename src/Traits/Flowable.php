@@ -2,7 +2,6 @@
 
 namespace szana8\Laraflow\Traits;
 
-use App\IssueState;
 use szana8\Laraflow\Laraflow;
 use szana8\Laraflow\LaraflowHistory;
 
@@ -11,7 +10,7 @@ trait Flowable
     /**
      * StateMachine
      */
-    protected $flowMachine;
+    protected $laraflowInstance;
 
     /**
      * Create a singleton StateMachine instance form the specified config
@@ -19,13 +18,13 @@ trait Flowable
      * @return Laraflow
      * @throws \Exception
      */
-    public function flowMachine()
+    public function laraflowInstance()
     {
-        if ( ! $this->flowMachine ) {
-            $this->flowMachine = new Laraflow($this, $this->getLaraflowStates());
+        if ( ! $this->laraflowInstance ) {
+            $this->laraflowInstance = new Laraflow($this, $this->getLaraflowStates());
         }
 
-        return $this->flowMachine;
+        return $this->laraflowInstance;
     }
 
     /**
@@ -37,7 +36,7 @@ trait Flowable
      */
     public function flowStepIs()
     {
-        return $this->flowMachine()->getActualStep();
+        return $this->laraflowInstance()->getActualStep();
     }
 
     /**
@@ -49,7 +48,7 @@ trait Flowable
      */
     public function transition($transition)
     {
-        return $this->flowMachine()->apply($transition);
+        return $this->laraflowInstance()->apply($transition);
     }
 
     /**
@@ -61,10 +60,10 @@ trait Flowable
      */
     protected function getStepName($state)
     {
-        if (!isset ($this->flowMachine()->getConfiguration()['steps'][$state]['text']))
+        if (!isset ($this->laraflowInstance()->getConfiguration()['steps'][$state]['text']))
             return $state;
 
-        return $this->flowMachine()->getConfiguration()['steps'][$state]['text'];
+        return $this->laraflowInstance()->getConfiguration()['steps'][$state]['text'];
     }
 
     /**
@@ -76,7 +75,7 @@ trait Flowable
      */
     public function transitionAllowed($transition)
     {
-        return $this->flowMachine()->can($transition);
+        return $this->laraflowInstance()->can($transition);
     }
 
     /**
@@ -97,8 +96,6 @@ trait Flowable
      */
     public function addHistoryLine(array $transitionData)
     {
-        $this->save();
-
         $transitionData['user_id'] = auth()->id();
         $transitionData['model_name'] = get_class();
 

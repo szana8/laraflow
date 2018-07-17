@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Validator;
 
 class LaraflowValidator implements LaraflowValidatorInterface
 {
-
     /**
      * Validate the attributes with the given rules.
      *
@@ -14,7 +13,7 @@ class LaraflowValidator implements LaraflowValidatorInterface
      * @param array $rules
      * @return mixed
      */
-    public function validate($attributes, array $rules)
+    public function validate(array $attributes, array $rules)
     {
         $result = Validator::make($attributes, $rules);
 

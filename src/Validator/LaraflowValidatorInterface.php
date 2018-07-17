@@ -13,5 +13,5 @@ interface LaraflowValidatorInterface
      * @param array $rules
      * @return mixed
      */
-    public function validate($attributes, array $rules);
+    public function validate(array $attributes, array $rules);
 }

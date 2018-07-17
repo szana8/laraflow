@@ -15,11 +15,11 @@ class CreateLaraflowHistoryTable extends Migration
     {
         Schema::create('laraflow_histories', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('model_name');
-            $table->integer('model_id');
+            $table->string('model_name')->index();
+            $table->integer('model_id')->index();
             $table->string('transition');
             $table->string('to');
-            $table->integer('user_id');
+            $table->integer('user_id')->index();
             $table->timestamps();
         });
     }

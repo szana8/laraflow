@@ -34,13 +34,17 @@ class LaraflowServiceProvider extends ServiceProvider
         //
     }
 
-
+    /**
+     * Register the Laraflow global events for the future usage.
+     */
     protected function registerEvents()
     {
         $events = $this->app->make(Dispatcher::class);
 
-        foreach ($this->events as $event => $listeners) {
-            foreach ($listeners as $listener) {
+        foreach ($this->events as $event => $listeners)
+        {
+            foreach ($listeners as $listener)
+            {
                 $events->listen($event, $listener);
             }
         }

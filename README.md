@@ -155,5 +155,9 @@ In your controller you can use the transition function to change your Eloquent o
         return $e->getMessage();
     }
 ```
-##### Credits
+#### Credits
 This library has been highly inspired by https://github.com/winzou/state-machine.
+
+#### License
+
+The package is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -182,6 +182,8 @@ class Laraflow implements LaraflowInterface
     {
         event(LaraflowEvents::POST_TRANSITION, $event);
 
+        $this->callCallbacks($event, 'post');
+
         return $this;
     }
 
@@ -198,10 +200,13 @@ class Laraflow implements LaraflowInterface
         }
 
         foreach ($event->getConfig()['callbacks'][$position] as $key => &$callback) {
-            if (class_exists($callback)) {
-                $app = new $callback();
-                $app->handle($event);
+            if (!class_exists($callback)) {
+               report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $callback])));
+               continue;
             }
+
+            $app = new $callback();
+            $app->handle($event);
         }
     }
 
@@ -238,7 +243,7 @@ class Laraflow implements LaraflowInterface
      * @param $transition
      * @return LaraflowTransitionEvents
      */
-    protected function setLaraflowEvent($transition): LaraflowTransitionEvents
+    protected function setLaraflowEvent($transition)
     {
         return new LaraflowTransitionEvents($transition, $this->getActualStep(), $this->configuration['transitions'][$transition], $this);
     }
