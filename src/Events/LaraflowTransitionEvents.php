@@ -2,7 +2,6 @@
 
 namespace szana8\Laraflow\Events;
 
-
 use szana8\Laraflow\LaraflowInterface;
 
 class LaraflowTransitionEvents
@@ -85,7 +84,7 @@ class LaraflowTransitionEvents
      */
     public function setRejected($reject = true)
     {
-        $this->rejected = (bool)$reject;
+        $this->rejected = (bool) $reject;
     }
 
     /**
