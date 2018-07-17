@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class LaraflowHistory extends Model
 {
     /**
-     *
      * @var array
      */
     protected $fillable = ['transition', 'from', 'user_id', 'model_id', 'to', 'model_name'];
 
     /**
-     * A state belong to the issue
+     * A state belong to the issue.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -23,7 +22,7 @@ class LaraflowHistory extends Model
     }
 
     /**
-     * A state belongs to a user
+     * A state belongs to a user.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

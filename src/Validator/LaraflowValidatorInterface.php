@@ -1,8 +1,6 @@
 <?php
 
-
 namespace szana8\Laraflow\Validator;
-
 
 interface LaraflowValidatorInterface
 {

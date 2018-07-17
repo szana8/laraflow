@@ -2,9 +2,9 @@
 
 namespace szana8\Laraflow;
 
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Support\ServiceProvider;
 use szana8\Laraflow\Traits\EventMap;
+use Illuminate\Support\ServiceProvider;
+use Illuminate\Contracts\Events\Dispatcher;
 
 class LaraflowServiceProvider extends ServiceProvider
 {
@@ -22,8 +22,8 @@ class LaraflowServiceProvider extends ServiceProvider
         $this->loadTranslationsFrom(__DIR__.'/Translation', 'laraflow');
 
         $this->registerEvents();
-
     }
+
     /**
      * Register any package services.
      *
@@ -41,10 +41,8 @@ class LaraflowServiceProvider extends ServiceProvider
     {
         $events = $this->app->make(Dispatcher::class);
 
-        foreach ($this->events as $event => $listeners)
-        {
-            foreach ($listeners as $listener)
-            {
+        foreach ($this->events as $event => $listeners) {
+            foreach ($listeners as $listener) {
                 $events->listen($event, $listener);
             }
         }

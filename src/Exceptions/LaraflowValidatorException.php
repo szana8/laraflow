@@ -6,5 +6,4 @@ use Illuminate\Validation\ValidationException;
 
 class LaraflowValidatorException extends ValidationException
 {
-
 }
