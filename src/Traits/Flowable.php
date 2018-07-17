@@ -22,8 +22,7 @@ trait Flowable
     public function flowMachine()
     {
         if ( ! $this->flowMachine ) {
-            $config = json_decode($this->workflow->workflow, true);
-            $this->flowMachine = new Laraflow($this, $config);
+            $this->flowMachine = new Laraflow($this, $this->laraflowStates());
         }
 
         return $this->flowMachine;
