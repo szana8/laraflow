@@ -22,7 +22,7 @@ trait Flowable
     public function flowMachine()
     {
         if ( ! $this->flowMachine ) {
-            $this->flowMachine = new Laraflow($this, $this->laraflowStates());
+            $this->flowMachine = new Laraflow($this, $this->getLaraflowStates());
         }
 
         return $this->flowMachine;

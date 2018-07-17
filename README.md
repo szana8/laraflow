@@ -132,6 +132,9 @@ For example:
         ],
     ],
 ```
+Than you have to add a function to your eloquent model called *getLaraflowStates* . 
+This function has to return the array of the configuration.  
+
 This configuration contains a sample workflow. Every step has a text which you can use to display them. 
 All of the other necessary attributes has to be add to the extra array.  
 The *property_path* contains the column name in the table which stores the actual step of the record.
