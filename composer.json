@@ -1,0 +1,30 @@
+{
+    "name": "szana8/Laraflow",
+    "description": "Laravel workflow package for Eloquent models.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Istvan Szana",
+            "email": "szana8@gmail.com"
+        }
+    ],
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": "^5.6.4 || ^7.0",
+        "illuminate/support": "5.4.* || 5.5.* || 5.6.*"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.6",
+        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "szana8\\Laraflow\\": "src"
+        }
+    }
+}
