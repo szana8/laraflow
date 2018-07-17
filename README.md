@@ -1,6 +1,7 @@
 # Laraflow Workflow Package
-Laraflow is a standard workflow package for Laravel Eloquent objects. You can define your steps, the transition between the them, callbacks, and validators.
+Laraflow is a standard workflow package for Laravel Eloquent objects. You can define your steps, the transition between the them, callbacks, and validators.  
 
+[![StyleCI](https://github.styleci.io/repos/141295529/shield?branch=master)](https://github.styleci.io/repos/141295529)
 ### Installation (via composer)
 ```php
 composer require szana8/Laraflow
