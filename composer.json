@@ -8,11 +8,6 @@
             "email": "szana8@gmail.com"
         }
     ],
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1-dev"
-        }
-    },
     "minimum-stability": "dev",
     "require": {
         "php": "^5.6.4 || ^7.0",
@@ -26,6 +21,16 @@
     "autoload": {
         "psr-4": {
             "szana8\\Laraflow\\": "src"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        },
+        "laravel": {
+            "providers": [
+                "szana8\\Laraflow\\LaraflowServiceProvider"
+            ]
         }
     }
 }

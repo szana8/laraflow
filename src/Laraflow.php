@@ -7,6 +7,7 @@ use szana8\Laraflow\Validator\LaraflowValidator;
 use szana8\Laraflow\Exceptions\LaraflowException;
 use szana8\Laraflow\Events\LaraflowTransitionEvents;
 use szana8\Laraflow\Exceptions\LaraflowValidatorException;
+use szana8\Laraflow\Validator\LaraflowValidatorInterface;
 
 class Laraflow implements LaraflowInterface
 {
@@ -199,7 +200,7 @@ class Laraflow implements LaraflowInterface
         }
 
         foreach ($event->getConfig()['callbacks'][$position] as $key => &$callback) {
-            if (! class_exists($callback)) {
+            if ((! class_exists($callback)) && (! $callback instanceof LaraflowCallbackInterface)) {
                 report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $callback])));
                 continue;
             }
@@ -222,7 +223,7 @@ class Laraflow implements LaraflowInterface
         foreach ($event->getConfig()['validators'] as $key => $rules) {
             $class = is_numeric($key) ? LaraflowValidator::class : $key;
 
-            if (! class_exists($class)) {
+            if ((! class_exists($class)) && (! $class instanceof LaraflowValidatorInterface)){
                 array_push($this->validatorErrors, [[__('laraflow::validation.missing_validator_class', ['class' => $class])]]);
                 continue;
             }
