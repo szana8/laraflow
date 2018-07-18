@@ -6,8 +6,8 @@ use szana8\Laraflow\Events\LaraflowEvents;
 use szana8\Laraflow\Validator\LaraflowValidator;
 use szana8\Laraflow\Exceptions\LaraflowException;
 use szana8\Laraflow\Events\LaraflowTransitionEvents;
-use szana8\Laraflow\Exceptions\LaraflowValidatorException;
 use szana8\Laraflow\Validator\LaraflowValidatorInterface;
+use szana8\Laraflow\Exceptions\LaraflowValidatorException;
 
 class Laraflow implements LaraflowInterface
 {
@@ -223,7 +223,7 @@ class Laraflow implements LaraflowInterface
         foreach ($event->getConfig()['validators'] as $key => $rules) {
             $class = is_numeric($key) ? LaraflowValidator::class : $key;
 
-            if ((! class_exists($class)) && (! $class instanceof LaraflowValidatorInterface)){
+            if ((! class_exists($class)) && (! $class instanceof LaraflowValidatorInterface)) {
                 array_push($this->validatorErrors, [[__('laraflow::validation.missing_validator_class', ['class' => $class])]]);
                 continue;
             }
