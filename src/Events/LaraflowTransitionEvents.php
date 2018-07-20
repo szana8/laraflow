@@ -95,6 +95,9 @@ class LaraflowTransitionEvents
         return $this->rejected;
     }
 
+    /**
+     * @return array
+     */
     public function convertToArray()
     {
         return [

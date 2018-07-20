@@ -18,7 +18,7 @@ class LaraflowValidator implements LaraflowValidatorInterface
         $result = Validator::make($attributes, $rules);
 
         if ($result->fails()) {
-            return $result->errors()->getMessageBag();
+            return $result->errors()->getMessages();
         }
 
         return true;
