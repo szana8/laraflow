@@ -66,6 +66,16 @@ trait Flowable
 
         return $this->laraflowInstance()->getConfiguration()['steps'][$state]['text'];
     }
+    
+    /**
+     * Return the actual step name.
+     *
+     * @return mixed
+     */
+    public function getActualStepName()
+    {
+        return $this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getActualStep()]['text'];
+    }
 
     /**
      * Check the transition is possible or not.
