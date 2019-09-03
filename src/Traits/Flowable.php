@@ -66,7 +66,7 @@ trait Flowable
 
         return $this->laraflowInstance()->getConfiguration()['steps'][$state]['text'];
     }
-    
+
     /**
      * Return the actual step name.
      *
