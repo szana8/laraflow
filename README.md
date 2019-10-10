@@ -2,7 +2,12 @@
 Laraflow is a standard workflow package for Laravel Eloquent objects. You can define your steps, 
 the transition between the them, callbacks, and validators.  
 
+[![Latest Stable Version](https://poser.pugx.org/szana8/laraflow/v/stable)](https://packagist.org/packages/szana8/laraflow)
 [![StyleCI](https://github.styleci.io/repos/141295529/shield?branch=master)](https://github.styleci.io/repos/141295529)
+[![Total Downloads](https://poser.pugx.org/szana8/laraflow/downloads)](https://packagist.org/packages/szana8/laraflow)
+[![Monthly Downloads](https://poser.pugx.org/szana8/laraflow/d/monthly)](https://packagist.org/packages/szana8/laraflow)
+[![Daily Downloads](https://poser.pugx.org/szana8/laraflow/d/daily)](https://packagist.org/packages/szana8/laraflow)
+[![License](https://poser.pugx.org/szana8/laraflow/license)](https://packagist.org/packages/szana8/laraflow)
 ### Installation (via composer)
 You can install the package via composer. The package require Laravel 5.5 or higher
 ```php
@@ -159,7 +164,7 @@ class SampleClass extends Model {
  ```
 
 ##### Step 3
-Than you have to add a function to your eloquent model called *getLaraflowStates()* .   
+## Than you have to add a function to your eloquent model called *getLaraflowStates()* .   
 This function has to return the array of the configuration!  
 
 ##### Step 4
