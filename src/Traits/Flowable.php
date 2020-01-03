@@ -20,7 +20,7 @@ trait Flowable
      */
     public function laraflowInstance()
     {
-        if (!$this->laraflowInstance) {
+        if (! $this->laraflowInstance) {
             $this->laraflowInstance = new Laraflow($this, $this->getLaraflowStates());
         }
 
@@ -60,7 +60,7 @@ trait Flowable
      */
     public function getStepName($state)
     {
-        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
+        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
             return $state;
         }
 
@@ -86,8 +86,7 @@ trait Flowable
      */
     public function getFromStepNameById($stateId)
     {
-
-        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']])) {
+        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']])) {
             return $stateId;
         }
 
@@ -103,8 +102,7 @@ trait Flowable
      */
     public function getToStepNameById($stateId)
     {
-
-        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'])) {
+        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'])) {
             return $stateId;
         }
 
