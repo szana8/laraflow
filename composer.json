@@ -1,36 +1,36 @@
 {
-    "name": "szana8/laraflow",
-    "description": "Laravel workflow package for Eloquent models.",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Istvan Szana",
-            "email": "szana8@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev",
-    "require": {
-        "php": "^5.6.4 || ^7.0",
-        "illuminate/support": "5.4.* || 5.5.* || 5.6.* || 5.7.* || 6.*",
-        "illuminate/database": "5.6.* || 5.7.* || 6.*"
-    },
-    "require-dev": {
-        "mockery/mockery": "^0.9.6",
-        "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0"
-    },
-    "autoload": {
-        "psr-4": {
-            "szana8\\Laraflow\\": "src"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "0.1-dev"
-        },
-        "laravel": {
-            "providers": [
-                "szana8\\Laraflow\\LaraflowServiceProvider"
-            ]
-        }
+  "name": "szana8/laraflow",
+  "description": "Laravel workflow package for Eloquent models.",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Istvan Szana",
+      "email": "szana8@gmail.com"
     }
+  ],
+  "minimum-stability": "dev",
+  "require": {
+    "php": "^5.6.4 || ^7.0",
+    "illuminate/support": "5.4.* || 5.5.* || 5.6.* || 5.7.* || 6.*",
+    "illuminate/database": "5.4.* || 5.5.* || 5.6.* || 5.7.* || 6.*"
+  },
+  "require-dev": {
+    "mockery/mockery": "^0.9.6",
+    "phpunit/phpunit": "^5.0 || ^6.0 || ^7.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "szana8\\Laraflow\\": "src"
+    }
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.1-dev"
+    },
+    "laravel": {
+      "providers": [
+        "szana8\\Laraflow\\LaraflowServiceProvider"
+      ]
+    }
+  }
 }
