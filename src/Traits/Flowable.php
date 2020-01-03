@@ -20,7 +20,7 @@ trait Flowable
      */
     public function laraflowInstance()
     {
-        if (! $this->laraflowInstance) {
+        if (!$this->laraflowInstance) {
             $this->laraflowInstance = new Laraflow($this, $this->getLaraflowStates());
         }
 
@@ -58,9 +58,9 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    protected function getStepName($state)
+    public function getStepName($state)
     {
-        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
+        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
             return $state;
         }
 
@@ -78,6 +78,40 @@ trait Flowable
     }
 
     /**
+     * Return the name of the stateId.
+     *
+     * @param $state
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getFromStepNameById($stateId)
+    {
+
+        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']])) {
+            return $stateId;
+        }
+
+        return $this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']]['text'];
+    }
+
+    /**
+     * Return the name of the stateId.
+     *
+     * @param $state
+     * @return mixed
+     * @throws \Exception
+     */
+    public function getToStepNameById($stateId)
+    {
+
+        if (!isset($this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'])) {
+            return $stateId;
+        }
+
+        return $this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'];
+    }
+
+    /**
      * Check the transition is possible or not.
      *
      * @param $transition
@@ -92,11 +126,25 @@ trait Flowable
     /**
      * Return the transition history of the model.
      *
+     * @return \Illuminate\Database\Eloquent\Relations\MorphMany
+     */
+    protected function getMorphHistoryData()
+    {
+        return $this->morphMany(LaraflowHistory::class, 'flowable');
+    }
+
+    /**
+     * Add the step name to the morphed data from the history table,
+     * to make it more readable.
+     *
      * @return mixed
      */
     public function history()
     {
-        return $this->hasMany(LaraflowHistory::class, 'model_id', 'id');
+        return $this->getMorphHistoryData()->get()->each(function ($item, $key) {
+            $item['fromStepName'] = $this->getFromStepNameById($item['transition']);
+            $item['toStepName'] = $this->getToStepNameById($item['to']);
+        });
     }
 
     /**
@@ -108,8 +156,7 @@ trait Flowable
     public function addHistoryLine(array $transitionData)
     {
         $transitionData['user_id'] = auth()->id();
-        $transitionData['model_name'] = get_class();
 
-        return $this->history()->create($transitionData);
+        return $this->getMorphHistoryData()->create($transitionData);
     }
 }

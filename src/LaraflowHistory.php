@@ -9,16 +9,16 @@ class LaraflowHistory extends Model
     /**
      * @var array
      */
-    protected $fillable = ['transition', 'from', 'user_id', 'model_id', 'to', 'model_name'];
+    protected $fillable = ['transition', 'from', 'user_id', 'to', 'flowable_type', 'flowable_id'];
 
     /**
      * A state belong to the issue.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\MorphTo
      */
-    public function model()
+    public function flowable()
     {
-        return $this->belongsTo("$this->model_name");
+        return $this->morphTo();
     }
 
     /**
