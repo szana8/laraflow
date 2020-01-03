@@ -2,9 +2,9 @@
 
 namespace szana8\Laraflow;
 
-use szana8\Laraflow\Traits\EventMap;
-use Illuminate\Support\ServiceProvider;
 use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Support\ServiceProvider;
+use szana8\Laraflow\Traits\EventMap;
 
 class LaraflowServiceProvider extends ServiceProvider
 {
@@ -17,13 +17,13 @@ class LaraflowServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__ . '/Translation', 'laraflow');
+        $this->loadTranslationsFrom(__DIR__.'/Translation', 'laraflow');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__ . './config/laraflow.php' => config_path('laraflow.php'),
+                __DIR__.'./config/laraflow.php' => config_path('laraflow.php'),
             ], 'config');
         }
 

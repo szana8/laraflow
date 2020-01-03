@@ -3,11 +3,11 @@
 namespace szana8\Laraflow;
 
 use szana8\Laraflow\Events\LaraflowEvents;
-use szana8\Laraflow\Validator\LaraflowValidator;
-use szana8\Laraflow\Exceptions\LaraflowException;
 use szana8\Laraflow\Events\LaraflowTransitionEvents;
-use szana8\Laraflow\Validator\LaraflowValidatorInterface;
+use szana8\Laraflow\Exceptions\LaraflowException;
 use szana8\Laraflow\Exceptions\LaraflowValidatorException;
+use szana8\Laraflow\Validator\LaraflowValidator;
+use szana8\Laraflow\Validator\LaraflowValidatorInterface;
 
 class Laraflow implements LaraflowInterface
 {

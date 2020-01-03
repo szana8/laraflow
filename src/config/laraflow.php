@@ -43,14 +43,14 @@ return [
                 'text' => 'Start Progress',
                 'extra' => [],
                 'callbacks' => [
-                    /*  'pre' => [
+                /*  'pre' => [
                         'App\\TestPreCallback'
                     ],
                     'post' => [
                         'App\\TestPostCallback'
                     ] */],
                 'validators' => [
-                    /*  [
+                /*  [
                         'title' => 'numeric',
                         'assignee_id' => 'required'
                     ] */]
