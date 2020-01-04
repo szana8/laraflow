@@ -10,52 +10,62 @@ return [
     | when the Eloquent object which responsible for the state machine try
     | to save the required configuration, but the user didn't add that.
     |
+    | This configuration array uses string based keys for the transistions. This 
+    | allows for calling transistions like MyModel->transition('Start'). In the 
+    | workflow history table the transition and to properties are also more
+    | descriptive. Finally inserting steps and tranisitions does not invalidate 
+    | the history table.
+    |
+    | In most cicumstances one will define Class Constants in the model describing
+    | the state and transitions and return the configuration array from the method
+    | MyModel->getLaraflowStates() using those Class Constants.
+    |
     */
 
     'configuration' => [
         'property_path' => 'status',
         'steps' => [
-            [
+            "Open" => [
                 'text' => 'Open',
                 'extra' => []
             ],
-            [
+            "InProgress" => [
                 'text' => 'In Progress',
                 'extra' => []
             ],
-            [
+            "Resolved" => [
                 'text' => 'Resolved',
                 'extra' => []
             ],
-            [
+            "Reopen" => [
                 'text' => 'Reopen',
                 'extra' => []
             ],
-            [
+            "Closed" => [
                 'text' => 'Closed',
                 'extra' => []
             ],
         ],
         'transitions' => [
-            [
+            "Start" => [
                 'from' => 0,
                 'to' => 1,
                 'text' => 'Start Progress',
                 'extra' => [],
                 'callbacks' => [
-                /*  'pre' => [
+                    /*  'pre' => [
                         'App\\TestPreCallback'
                     ],
                     'post' => [
                         'App\\TestPostCallback'
                     ] */],
                 'validators' => [
-                /*  [
+                    /*  [
                         'title' => 'numeric',
                         'assignee_id' => 'required'
                     ] */]
             ],
-            [
+            "Stop" => [
                 'from' => 1,
                 'to' => 0,
                 'text' => 'Stop Progress',
@@ -66,7 +76,7 @@ return [
                 ],
                 'validators' => []
             ],
-            [
+            "ResolveIssue" => [
                 'from' => 1,
                 'to' => 2,
                 'text' => 'Resolve Issue',
@@ -77,7 +87,7 @@ return [
                 ],
                 'validators' => []
             ],
-            [
+            "Reopen" => [
                 'from' => 2,
                 'to' => 3,
                 'text' => 'Reopen Issue',
@@ -88,7 +98,7 @@ return [
                 ],
                 'validators' => []
             ],
-            [
+            "ResolveReopened" => [
                 'from' => 3,
                 'to' => 2,
                 'text' => 'Resolve Issue',
@@ -103,7 +113,7 @@ return [
                 ],
                 'validators' => []
             ],
-            [
+            "Close" => [
                 'from' => 1,
                 'to' => 4,
                 'text' => 'Close Issue',
@@ -114,7 +124,7 @@ return [
                 ],
                 'validators' => []
             ],
-            [
+            "CloseReopened" => [
                 'from' => 3,
                 'to' => 4,
                 'text' => 'Close Issue',
