@@ -43,14 +43,14 @@ return [
                 'text' => 'Start Progress',
                 'extra' => [],
                 'callbacks' => [
-                /*  'pre' => [
+                    /*  'pre' => [
                         'App\\TestPreCallback'
                     ],
                     'post' => [
                         'App\\TestPostCallback'
                     ] */],
                 'validators' => [
-                /*  [
+                    /*  [
                         'title' => 'numeric',
                         'assignee_id' => 'required'
                     ] */]
@@ -161,29 +161,6 @@ return [
         //     'name' => 'Field must be a valid timezone',
         //     'description' => 'The field under validation must be a valid timezone identifier according to the  timezone_identifiers_list PHP function.',
         //     'validator' => 'timezone',
-        // ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Laraflow callbacks
-    |--------------------------------------------------------------------------
-    |
-    | This array is the list of the post and pre function which can be assigned
-    | to the transitions. Every callback has to be an array and each one of
-    | them has three manadatory attributes. Name, description, class.
-    |
-    */
-    'callbacks' => [
-        // [
-        //     'name' => 'Notify Users',
-        //     'description' => 'Send an update email about the issue, when a user changed the status',
-        //     'class' => 'App\\LaraflowCallbacks\\NotifyUsers'
-        // ],
-        // [
-        //     'name' => 'Assign to Current User',
-        //     'description' => 'Assign the issue to the current user',
-        //     'class' => 'App\\LaraflowCallbacks\\AssignToCurrentUser'
         // ]
     ]
 ];

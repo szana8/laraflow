@@ -2,9 +2,10 @@
 
 namespace szana8\Laraflow\Listeners;
 
+use szana8\Laraflow\LaraflowCallbackInterface;
 use szana8\Laraflow\Events\LaraflowTransitionEvents;
 
-class LaraflowHistoryManager
+class LaraflowHistoryManager implements LaraflowCallbackInterface
 {
     /**
      * Handle the event.

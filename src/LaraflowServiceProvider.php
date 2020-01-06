@@ -4,6 +4,8 @@ namespace szana8\Laraflow;
 
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Support\ServiceProvider;
+use szana8\Laraflow\Console\Commands\GenerateLaraflowSubscriber;
+use szana8\Laraflow\Console\Commands\GenerateLaraflowValidator;
 use szana8\Laraflow\Traits\EventMap;
 
 class LaraflowServiceProvider extends ServiceProvider
@@ -17,17 +19,22 @@ class LaraflowServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+        $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
 
-        $this->loadTranslationsFrom(__DIR__.'/Translation', 'laraflow');
+        $this->loadTranslationsFrom(__DIR__ . '/Translation', 'laraflow');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'./config/laraflow.php' => config_path('laraflow.php'),
+                __DIR__ . './config/laraflow.php' => config_path('laraflow.php'),
             ], 'config');
         }
 
         $this->registerEvents();
+
+        $this->commands([
+            GenerateLaraflowSubscriber::class,
+            GenerateLaraflowValidator::class,
+        ]);
     }
 
     /**
