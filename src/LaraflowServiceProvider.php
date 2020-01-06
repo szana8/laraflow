@@ -23,11 +23,9 @@ class LaraflowServiceProvider extends ServiceProvider
 
         $this->loadTranslationsFrom(__DIR__ . '/Translation', 'laraflow');
 
-        if ($this->app->runningInConsole()) {
-            $this->publishes([
-                __DIR__ . './config/laraflow.php' => config_path('laraflow.php'),
-            ], 'config');
-        }
+        $this->publishes([
+            __DIR__ . './config/laraflow.php' => config_path('laraflow.php'),
+        ], 'config');
 
         $this->registerEvents();
 

@@ -27,13 +27,17 @@ php artisan migrate
 After Laravel 5.5 you don't need to manually add the service provider to the config/app.php.
 You can find a sample test project with this package in here: https://github.com/szana8/laravel-workflow-package
 
-#### Configuration array
+### Configuration file
 
-You need a configuration array before you use the Laraflow workflow. If you want to try the package you can generate an example configuration file with the following command.
+After the installation you have to publish a configuration file, which contains a lot of necessary data for the package.
 
 ```
 php artisan vendor:publish --provider="szana8\Laraflow\LaraflowServiceProvider"
 ```
+
+#### Configuration array
+
+You need a configuration array before you use the Laraflow workflow. If you want to try the package you can generate an example configuration file with the following command.
 
 This configuration contains a sample workflow. Every step has a text which you can use to display them.
 All of the other necessary attributes has to be add to the extra array.  

@@ -13,119 +13,34 @@ return [
     */
 
     'configuration' => [
+        /**
+         * The property path is the column/attribute name in the table/model
+         * which contains the array keys of the steps also shows the
+         * current status of the record.
+         */
         'property_path' => 'status',
-        'steps' => [
-            [
-                'text' => 'Open',
-                'extra' => []
-            ],
-            [
-                'text' => 'In Progress',
-                'extra' => []
-            ],
-            [
-                'text' => 'Resolved',
-                'extra' => []
-            ],
-            [
-                'text' => 'Reopen',
-                'extra' => []
-            ],
-            [
-                'text' => 'Closed',
-                'extra' => []
-            ],
-        ],
-        'transitions' => [
-            [
-                'from' => 0,
-                'to' => 1,
-                'text' => 'Start Progress',
-                'extra' => [],
-                'callbacks' => [
-                    /*  'pre' => [
-                        'App\\TestPreCallback'
-                    ],
-                    'post' => [
-                        'App\\TestPostCallback'
-                    ] */],
-                'validators' => [
-                    /*  [
-                        'title' => 'numeric',
-                        'assignee_id' => 'required'
-                    ] */]
-            ],
-            [
-                'from' => 1,
-                'to' => 0,
-                'text' => 'Stop Progress',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-            [
-                'from' => 1,
-                'to' => 2,
-                'text' => 'Resolve Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-            [
-                'from' => 2,
-                'to' => 3,
-                'text' => 'Reopen Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-            [
-                'from' => 3,
-                'to' => 2,
-                'text' => 'Resolve Issue',
-                'extra' => [
-                    'fromPort' => 'R',
-                    'toPort' => 'R',
-                    'points' => []
-                ],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-            [
-                'from' => 1,
-                'to' => 4,
-                'text' => 'Close Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-            [
-                'from' => 3,
-                'to' => 4,
-                'text' => 'Close Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
-            ],
-        ],
+
+        /**
+         * The list of the steps which can be used in for the engine. Every
+         * step has to be an array with at least two attributes. Text and
+         * extra. The text shows the name of the steps. It will be
+         * returns back as a kind of name, the extra contains
+         * extra information for the front end engine.
+         */
+        'steps' => [],
+
+        /**
+         * The transitions array contains all of the transitions from a
+         * step to another what you want to use. Every transition step
+         * is an array. The array has to be a text attribute which is
+         * a name of the transition, the from and to attributes are
+         * the array keys from the steps array, the extra array
+         * works the same than the steps. The validation array
+         * contains all of the validation rules grouped by
+         * column name. The callback contains the pre and
+         * post callback functions.
+         */
+        'transitions' => [],
     ],
 
     /*
@@ -138,29 +53,5 @@ return [
     | before the status change. You can use ony Laravel validators.
     |
     */
-    'validators' => [
-        // 'required' => [
-        //     'name' => 'Field required',
-        //     'description' => 'The field under validation must be present in the input data and not empty.',
-        //     'validator' => 'required',
-        // ],
-
-        // 'string' => [
-        //     'name' => 'Field must be string',
-        //     'description' => 'The field under validation must be a string. If you would like to allow the field to also be null, you should assign the nullable rule to the field.',
-        //     'validator' => 'string',
-        // ],
-
-        // 'numeric' => [
-        //     'name' => 'Field must be a number',
-        //     'description' => 'The field under validation must be numeric.',
-        //     'validator' => 'numeric',
-        // ],
-
-        // 'timezone' => [
-        //     'name' => 'Field must be a valid timezone',
-        //     'description' => 'The field under validation must be a valid timezone identifier according to the  timezone_identifiers_list PHP function.',
-        //     'validator' => 'timezone',
-        // ]
-    ]
+    'validators' => []
 ];

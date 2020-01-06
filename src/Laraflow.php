@@ -19,7 +19,7 @@ class Laraflow implements LaraflowInterface
     /**
      * Configuration array.
      */
-    protected $configuration;
+    protected $configuration = [];
 
     /**
      * @var
@@ -33,10 +33,11 @@ class Laraflow implements LaraflowInterface
 
     /**
      * Workflow constructor.
+     *
      * @param $object
      * @param $configuration
      */
-    public function __construct($object, $configuration)
+    public function __construct($object, array $configuration)
     {
         $this->object = $object;
         isset($configuration['property_path']) ?: $configuration['property_path'] = 'state';
@@ -174,6 +175,8 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Fire all of the post events after the status has been changed.
+     *
      * @param $event
      * @return Laraflow
      */
@@ -187,6 +190,8 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Function for the custom callback calls.
+     *
      * @param $event
      * @param $position
      * @return bool
@@ -211,6 +216,9 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Get the attribute validators before the status change and
+     * validate the attribtutes.
+     *
      * @param $event
      * @return bool
      */
@@ -262,6 +270,9 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Reutrn an event object for the custom events. The users
+     * can reach the workflow attributes with this.
+     *
      * @param $transition
      * @return LaraflowTransitionEvents
      */
