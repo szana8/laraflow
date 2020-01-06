@@ -37,11 +37,7 @@ php artisan vendor:publish --provider="szana8\Laraflow\LaraflowServiceProvider"
 
 #### Configuration array
 
-You need a configuration array before you use the Laraflow workflow. If you want to try the package you can generate an example configuration file with the following command.
-
-This configuration contains a sample workflow. Every step has a text which you can use to display them.
-All of the other necessary attributes has to be add to the extra array.  
-The _property_path_ contains the column name in the table which stores the actual step of the record.
+You need a configuration array before you use the Laraflow workflow.
 
 ## Usage
 
