@@ -10,130 +10,252 @@ return [
     | when the Eloquent object which responsible for the state machine try
     | to save the required configuration, but the user didn't add that.
     |
-    | This configuration array uses string based keys for the transistions. This 
-    | allows for calling transistions like MyModel->transition('Start'). In the 
-    | workflow history table the transition and to properties are also more
-    | descriptive. Finally inserting steps and tranisitions does not invalidate 
-    | the history table.
-    |
     | In most cicumstances one will define Class Constants in the model describing
     | the state and transitions and return the configuration array from the method
     | MyModel->getLaraflowStates() using those Class Constants.
     |
     */
 
+    /*
+    | Take the following class constant in you model for named access to workflow
+    | elements. Change names and values as required. Leave space to add items in 
+    | between.
+    |
+    | // First worflow status values.
+    | const Open = 1110;
+    | const InProgress = 1120;
+    | const Reopen = 1130;
+    | const Resolved = 1140;
+    | const Closed = 1150;
+    | 
+    | // First work transitions
+    | const Start = 1510;
+    | const Stop = 1520;
+    | const ResolveIssue = 1530;
+    | const ReopenIssue = 1540;
+    | const ResolveReopened = 1550;
+    | const CloseIssue = 1560;
+    | const CloseReopened = 1570;
+    |
+    | // Second workflow status values
+    | const ToAssign = 2110
+    | const Assigned = 2120
+    | const WIP = 2130
+    | const AwaitStatusResolve = 2140
+    | const Finish = 2150
+    | const ClosedPreparation = 2160
+    |
+    | // Second workflow transitions
+    | const AssignPreparation = 2510
+    | const SetWIP = 2520
+    | const Wait = 2530
+    | const FinishPreparation = 2540
+    | const ClosePrepartion = 2550
+    */
+
     'configuration' => [
-        'property_path' => 'status',
-        'steps' => [
-            "Open" => [
-                'text' => 'Open',
-                'extra' => []
+        'default' => [
+            'property_path' => 'status',
+            'text' => 'Model status Workflow',
+            'steps' => [
+                self::Open => [
+                    'text' => 'Open',
+                    'extra' => []
+                ],
+                self::InProgress => [
+                    'text' => 'In Progress',
+                    'extra' => []
+                ],
+                self::Resolved => [
+                    'text' => 'Resolved',
+                    'extra' => []
+                ],
+                self::Reopen => [
+                    'text' => 'Reopen',
+                    'extra' => []
+                ],
+                self::Closed => [
+                    'text' => 'Closed',
+                    'extra' => []
+                ],
             ],
-            "InProgress" => [
-                'text' => 'In Progress',
-                'extra' => []
-            ],
-            "Resolved" => [
-                'text' => 'Resolved',
-                'extra' => []
-            ],
-            "Reopen" => [
-                'text' => 'Reopen',
-                'extra' => []
-            ],
-            "Closed" => [
-                'text' => 'Closed',
-                'extra' => []
-            ],
-        ],
-        'transitions' => [
-            "Start" => [
-                'from' => 0,
-                'to' => 1,
-                'text' => 'Start Progress',
-                'extra' => [],
-                'callbacks' => [
-                    /*  'pre' => [
+            'transitions' => [
+                self::Start => [
+                    'from' => self::Open,
+                    'to' => self::InProgress,
+                    'text' => 'Start Progress',
+                    'extra' => [],
+                    'callbacks' => [
+                        /*  'pre' => [
                         'App\\TestPreCallback'
                     ],
                     'post' => [
                         'App\\TestPostCallback'
                     ] */],
-                'validators' => [
-                    /*  [
+                    'validators' => [
+                        /*  [
                         'title' => 'numeric',
                         'assignee_id' => 'required'
                     ] */]
+                ],
+                self::Stop => [
+                    'from' => self::InProgress,
+                    'to' => self::Open,
+                    'text' => 'Stop Progress',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
+                self::ResolveIssue => [
+                    'from' => self::InProgress,
+                    'to' => self::Resolved,
+                    'text' => 'Resolve Issue',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
+                self::ReopenIssue => [
+                    'from' => self::Resolved,
+                    'to' => self::Reopen,
+                    'text' => 'Reopen Issue',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
+                self::ResolveReopened => [
+                    'from' => self::Reopen,
+                    'to' => self::Resolved,
+                    'text' => 'Resolve Issue',
+                    'extra' => [
+                        'fromPort' => 'R',
+                        'toPort' => 'R',
+                        'points' => []
+                    ],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
+                self::CloseIssue => [
+                    'from' => self::InProgress,
+                    'to' => self::Closed,
+                    'text' => 'Close Issue',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
+                self::CloseReopened => [
+                    'from' => self::Reopen,
+                    'to' => self::Closed,
+                    'text' => 'Close Issue',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
+                ],
             ],
-            "Stop" => [
-                'from' => 1,
-                'to' => 0,
-                'text' => 'Stop Progress',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
+        ],
+        'preperation' => [
+            'property_path' => 'preperation_status',
+            'text' => 'Preperation Status Workflow',
+            'steps' => [
+                self::ToAssign => [
+                    'text' => 'To Assign',
+                    'extra' => []
                 ],
-                'validators' => []
+                self::Assigned => [
+                    'text' => 'Assigned',
+                    'extra' => []
+                ],
+                self::WIP => [
+                    'text' => 'Work In Progress',
+                    'extra' => []
+                ],
+                self::AwaitStatusResolve => [
+                    'text' => 'Await default workflow to resolve',
+                    'extra' => []
+                ],
+                self::Finish => [
+                    'text' => 'Finish Prepartion',
+                    'extra' => []
+                ],
+                self::ClosedPreparation => [
+                    'text' => 'Preperation Finished',
+                    'extra' => []
+                ],
             ],
-            "ResolveIssue" => [
-                'from' => 1,
-                'to' => 2,
-                'text' => 'Resolve Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
+            'transitions' => [
+                self::AssignPreparation => [
+                    'from' => self::ToAssign,
+                    'to' => self::Assigned,
+                    'text' => 'Assign Preparation',
+                    'extra' => [],
+                    'callbacks' => [],
+                    'validators' => []
                 ],
-                'validators' => []
-            ],
-            "Reopen" => [
-                'from' => 2,
-                'to' => 3,
-                'text' => 'Reopen Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
+                self::SetWIP => [
+                    'from' => self::Assigned,
+                    'to' => self::WIP,
+                    'text' => 'Work in progress',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
                 ],
-                'validators' => []
-            ],
-            "ResolveReopened" => [
-                'from' => 3,
-                'to' => 2,
-                'text' => 'Resolve Issue',
-                'extra' => [
-                    'fromPort' => 'R',
-                    'toPort' => 'R',
-                    'points' => []
+                self::Wait => [
+                    'from' => self::WIP,
+                    'to' => self::AwaitStatusResolve,
+                    'text' => 'Resolve Issue',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
                 ],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
+                self::FinishPreparation => [
+                    'from' => self::AwaitStatusResolve,
+                    'to' => self::Finish,
+                    'text' => 'Finish preparation',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => [
+                        [
+                            'status' => 'gte:' . self::Resolved,
+                        ]
+                    ]
                 ],
-                'validators' => []
-            ],
-            "Close" => [
-                'from' => 1,
-                'to' => 4,
-                'text' => 'Close Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
+                self::ClosePrepartion => [
+                    'from' => self::Finish,
+                    'to' => self::ClosedPreparation,
+                    'text' => 'Close preparation',
+                    'extra' => [],
+                    'callbacks' => [
+                        'pre' => [],
+                        'post' => []
+                    ],
+                    'validators' => []
                 ],
-                'validators' => []
-            ],
-            "CloseReopened" => [
-                'from' => 3,
-                'to' => 4,
-                'text' => 'Close Issue',
-                'extra' => [],
-                'callbacks' => [
-                    'pre' => [],
-                    'post' => []
-                ],
-                'validators' => []
             ],
         ],
     ],
