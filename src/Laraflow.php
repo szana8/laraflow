@@ -66,6 +66,7 @@ class Laraflow implements LaraflowInterface
         event(LaraflowEvents::CAN_TRANSITION, $this);
 
         return true;
+    }
     
 
     /**

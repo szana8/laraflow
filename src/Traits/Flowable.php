@@ -138,11 +138,12 @@ trait Flowable
      *
      * @return mixed
      */
-    public function history()
+    public function history($sm_name = 'default')
     {
-        return $this->getMorphHistoryData()->get()->each(function ($item, $key) {
-            $item['fromStepName'] = $this->getFromStepNameById($item['transition']);
-            $item['toStepName'] = $this->getToStepNameById($item['to']);
+        $laraflowField = $this->laraflowInstance($sm_name)->getConfiguration()['property_path'];
+        return $this->getMorphHistoryData()->where('field', $laraflowField)->get()->each(function ($item, $key) use ($sm_name) {
+            $item['fromStepName'] = $this->getFromStepNameById($item['transition'], $sm_name);
+            $item['toStepName'] = $this->getToStepNameById($item['to'], $sm_name);
         });
     }
 
