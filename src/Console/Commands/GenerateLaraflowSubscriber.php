@@ -3,8 +3,6 @@
 namespace szana8\Laraflow\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class GenerateLaraflowSubscriber extends GeneratorCommand
 {
@@ -30,7 +28,7 @@ class GenerateLaraflowSubscriber extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Listeners';
+        return $rootNamespace.'\Listeners';
     }
 
     /**
@@ -61,6 +59,6 @@ class GenerateLaraflowSubscriber extends GeneratorCommand
      */
     public function getStub()
     {
-        return  __DIR__ . '../../../Stubs/DummySubscriber.stub';
+        return  __DIR__.'../../../Stubs/DummySubscriber.stub';
     }
 }

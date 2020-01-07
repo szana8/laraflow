@@ -3,8 +3,6 @@
 namespace szana8\Laraflow\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class GenerateLaraflowValidator extends GeneratorCommand
 {
@@ -30,7 +28,7 @@ class GenerateLaraflowValidator extends GeneratorCommand
      */
     protected function getDefaultNamespace($rootNamespace)
     {
-        return $rootNamespace . '\Validators';
+        return $rootNamespace.'\Validators';
     }
 
     /**
@@ -61,6 +59,6 @@ class GenerateLaraflowValidator extends GeneratorCommand
      */
     public function getStub()
     {
-        return  __DIR__ . '../../../Stubs/DummValidator.stub';
+        return  __DIR__.'../../../Stubs/DummValidator.stub';
     }
 }
