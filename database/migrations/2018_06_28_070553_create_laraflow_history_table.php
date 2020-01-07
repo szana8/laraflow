@@ -17,6 +17,7 @@ class CreateLaraflowHistoryTable extends Migration
             $table->increments('id');
             $table->string('flowable_type')->index();
             $table->integer('flowable_id')->index();
+            $table->string('field');
             $table->string('transition');
             $table->string('to');
             $table->integer('user_id')->index();

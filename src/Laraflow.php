@@ -66,7 +66,7 @@ class Laraflow implements LaraflowInterface
         event(LaraflowEvents::CAN_TRANSITION, $this);
 
         return true;
-    }
+    
 
     /**
      * Applies the transition on the underlying object.
@@ -133,6 +133,17 @@ class Laraflow implements LaraflowInterface
                     'text' => $value['text']
                 ];
             })->toArray();
+    }
+
+
+    /**
+     * Return the fieldname of the model this statemachine operates on.
+     *
+     * @return string
+     */
+    public function getStateField()
+    {
+        return $this->configuration['property_path'];
     }
 
     /**
