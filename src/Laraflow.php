@@ -60,8 +60,12 @@ class Laraflow implements LaraflowInterface
             throw new LaraflowException(__('laraflow::exception.missing_transition', ['transition' => $transition]));
         }
 
-        if (collect($this->configuration['transitions'])->where('from', $this->getActualStep())->count() == 0) {
+        if (collect($this->configuration['transitions'])->where('from', $this->getActualStep())->isEmpty()) {
             return false;
+        }
+
+        if ($this->configuration['transitions'][$transition]['from'] != $this->getActualStep()) {
+            throw new LaraflowException(__('laraflow::exception.invalid_transition', ['transition' => $transition]));
         }
 
         event(LaraflowEvents::CAN_TRANSITION, $this);
@@ -178,7 +182,7 @@ class Laraflow implements LaraflowInterface
     {
         event(LaraflowEvents::PRE_TRANSITION, $event);
 
-        if (! $this->getValidators($event)) {
+        if (!$this->getValidators($event)) {
             throw LaraflowValidatorException::withMessages($this->validatorErrors);
         }
         $this->callCallbacks($event, 'pre');
