@@ -275,9 +275,7 @@ class Laraflow implements LaraflowInterface
     {
         foreach ($rules as $attribute => $rule) {
             if (array_key_exists($rule, config('laraflow')['custom_validators'])) {
-
                 $class = config('laraflow')['custom_validators'][$rule]['validator'];
-
                 break;
             }
         }
