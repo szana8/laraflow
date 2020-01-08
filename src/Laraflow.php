@@ -178,7 +178,7 @@ class Laraflow implements LaraflowInterface
     {
         event(LaraflowEvents::PRE_TRANSITION, $event);
 
-        if (!$this->getValidators($event)) {
+        if (! $this->getValidators($event)) {
             throw LaraflowValidatorException::withMessages($this->validatorErrors);
         }
         $this->callCallbacks($event, 'pre');
