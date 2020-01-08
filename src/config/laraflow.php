@@ -16,7 +16,7 @@ return [
     |
     */
     
-    'configuration' => [
+    'default' => [
         /**
          * The property path is the column/attribute name in the table/model
          * which contains the array keys of the steps also shows the
@@ -46,7 +46,7 @@ return [
          */
         'transitions' => [],
     ],
-];    
+    
     /*
     |--------------------------------------------------------------------------
     | Laraflow validators
@@ -58,6 +58,9 @@ return [
     |
     */
     'validators' => []
+    
+];    
+    
     
     /*
     | Take the following class constant in you model for named access to workflow
