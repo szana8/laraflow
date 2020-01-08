@@ -127,7 +127,7 @@ trait Flowable
      *
      * @return \Illuminate\Database\Eloquent\Relations\MorphMany
      */
-    protected function getMorphHistoryData($sm_name = 'default')
+    protected function getMorphHistoryData()
     {
         return $this->morphMany(LaraflowHistory::class, 'flowable');
     }
