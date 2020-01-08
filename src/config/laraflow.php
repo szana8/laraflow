@@ -52,211 +52,37 @@ return [
     | const FinishPreparation = 2540
     | const ClosePrepartion = 2550
     */
-
     'configuration' => [
         'default' => [
+
+            /**
+             * The property path is the column/attribute name in the table/model
+             * which contains the array keys of the steps also shows the
+             * current status of the record.
+             */
             'property_path' => 'status',
-            'text' => 'Model status Workflow',
-            'steps' => [
-                self::Open => [
-                    'text' => 'Open',
-                    'extra' => []
-                ],
-                self::InProgress => [
-                    'text' => 'In Progress',
-                    'extra' => []
-                ],
-                self::Resolved => [
-                    'text' => 'Resolved',
-                    'extra' => []
-                ],
-                self::Reopen => [
-                    'text' => 'Reopen',
-                    'extra' => []
-                ],
-                self::Closed => [
-                    'text' => 'Closed',
-                    'extra' => []
-                ],
-            ],
-            'transitions' => [
-                self::Start => [
-                    'from' => self::Open,
-                    'to' => self::InProgress,
-                    'text' => 'Start Progress',
-                    'extra' => [],
-                    'callbacks' => [
-                        /*  'pre' => [
-                        'App\\TestPreCallback'
-                    ],
-                    'post' => [
-                        'App\\TestPostCallback'
-                    ] */],
-                    'validators' => [
-                        /*  [
-                        'title' => 'numeric',
-                        'assignee_id' => 'required'
-                    ] */]
-                ],
-                self::Stop => [
-                    'from' => self::InProgress,
-                    'to' => self::Open,
-                    'text' => 'Stop Progress',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::ResolveIssue => [
-                    'from' => self::InProgress,
-                    'to' => self::Resolved,
-                    'text' => 'Resolve Issue',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::ReopenIssue => [
-                    'from' => self::Resolved,
-                    'to' => self::Reopen,
-                    'text' => 'Reopen Issue',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::ResolveReopened => [
-                    'from' => self::Reopen,
-                    'to' => self::Resolved,
-                    'text' => 'Resolve Issue',
-                    'extra' => [
-                        'fromPort' => 'R',
-                        'toPort' => 'R',
-                        'points' => []
-                    ],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::CloseIssue => [
-                    'from' => self::InProgress,
-                    'to' => self::Closed,
-                    'text' => 'Close Issue',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::CloseReopened => [
-                    'from' => self::Reopen,
-                    'to' => self::Closed,
-                    'text' => 'Close Issue',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-            ],
-        ],
-        'preperation' => [
-            'property_path' => 'preperation_status',
-            'text' => 'Preperation Status Workflow',
-            'steps' => [
-                self::ToAssign => [
-                    'text' => 'To Assign',
-                    'extra' => []
-                ],
-                self::Assigned => [
-                    'text' => 'Assigned',
-                    'extra' => []
-                ],
-                self::WIP => [
-                    'text' => 'Work In Progress',
-                    'extra' => []
-                ],
-                self::AwaitStatusResolve => [
-                    'text' => 'Await default workflow to resolve',
-                    'extra' => []
-                ],
-                self::Finish => [
-                    'text' => 'Finish Prepartion',
-                    'extra' => []
-                ],
-                self::ClosedPreparation => [
-                    'text' => 'Preperation Finished',
-                    'extra' => []
-                ],
-            ],
-            'transitions' => [
-                self::AssignPreparation => [
-                    'from' => self::ToAssign,
-                    'to' => self::Assigned,
-                    'text' => 'Assign Preparation',
-                    'extra' => [],
-                    'callbacks' => [],
-                    'validators' => []
-                ],
-                self::SetWIP => [
-                    'from' => self::Assigned,
-                    'to' => self::WIP,
-                    'text' => 'Work in progress',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::Wait => [
-                    'from' => self::WIP,
-                    'to' => self::AwaitStatusResolve,
-                    'text' => 'Resolve Issue',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-                self::FinishPreparation => [
-                    'from' => self::AwaitStatusResolve,
-                    'to' => self::Finish,
-                    'text' => 'Finish preparation',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => [
-                        [
-                            'status' => 'gte:' . self::Resolved,
-                        ]
-                    ]
-                ],
-                self::ClosePrepartion => [
-                    'from' => self::Finish,
-                    'to' => self::ClosedPreparation,
-                    'text' => 'Close preparation',
-                    'extra' => [],
-                    'callbacks' => [
-                        'pre' => [],
-                        'post' => []
-                    ],
-                    'validators' => []
-                ],
-            ],
+
+            /**
+             * The list of the steps which can be used in for the engine. Every
+             * step has to be an array with at least two attributes. Text and
+             * extra. The text shows the name of the steps. It will be
+             * returns back as a kind of name, the extra contains
+             * extra information for the front end engine.
+             */
+            'steps' => [],
+
+            /**
+             * The transitions array contains all of the transitions from a
+             * step to another what you want to use. Every transition step
+             * is an array. The array has to be a text attribute which is
+             * a name of the transition, the from and to attributes are
+             * the array keys from the steps array, the extra array
+             * works the same than the steps. The validation array
+             * contains all of the validation rules grouped by
+             * column name. The callback contains the pre and
+             * post callback functions.
+             */
+            'transitions' => [],
         ],
     ],
 
@@ -270,52 +96,205 @@ return [
     | before the status change. You can use ony Laravel validators.
     |
     */
-    'validators' => [
-        // 'required' => [
-        //     'name' => 'Field required',
-        //     'description' => 'The field under validation must be present in the input data and not empty.',
-        //     'validator' => 'required',
-        // ],
-
-        // 'string' => [
-        //     'name' => 'Field must be string',
-        //     'description' => 'The field under validation must be a string. If you would like to allow the field to also be null, you should assign the nullable rule to the field.',
-        //     'validator' => 'string',
-        // ],
-
-        // 'numeric' => [
-        //     'name' => 'Field must be a number',
-        //     'description' => 'The field under validation must be numeric.',
-        //     'validator' => 'numeric',
-        // ],
-
-        // 'timezone' => [
-        //     'name' => 'Field must be a valid timezone',
-        //     'description' => 'The field under validation must be a valid timezone identifier according to the  timezone_identifiers_list PHP function.',
-        //     'validator' => 'timezone',
-        // ]
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Laraflow callbacks
-    |--------------------------------------------------------------------------
-    |
-    | This array is the list of the post and pre function which can be assigned
-    | to the transitions. Every callback has to be an array and each one of
-    | them has three manadatory attributes. Name, description, class.
-    |
-    */
-    'callbacks' => [
-        // [
-        //     'name' => 'Notify Users',
-        //     'description' => 'Send an update email about the issue, when a user changed the status',
-        //     'class' => 'App\\LaraflowCallbacks\\NotifyUsers'
-        // ],
-        // [
-        //     'name' => 'Assign to Current User',
-        //     'description' => 'Assign the issue to the current user',
-        //     'class' => 'App\\LaraflowCallbacks\\AssignToCurrentUser'
-        // ]
-    ]
+    'validators' => []
 ];
+
+/**
+ * example configuration for multiple workflows in 1 model.
+ *         'default' => [
+ *           'property_path' => 'status',
+ *           'text' => 'Model status Workflow',
+ *           'steps' => [
+ *               self::Open => [
+ *                   'text' => 'Open',
+ *                   'extra' => []
+ *               ],
+ *               self::InProgress => [
+ *                   'text' => 'In Progress',
+ *                   'extra' => []
+ *               ],
+ *               self::Resolved => [
+ *                   'text' => 'Resolved',
+ *                   'extra' => []
+ *               ],
+ *               self::Reopen => [
+ *                   'text' => 'Reopen',
+ *                   'extra' => []
+ *               ],
+ *               self::Closed => [
+ *                   'text' => 'Closed',
+ *                   'extra' => []
+ *               ],
+ *           ],
+ *           'transitions' => [
+ *               self::Start => [
+ *                   'from' => self::Open,
+ *                   'to' => self::InProgress,
+ *                   'text' => 'Start Progress',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                      ],
+ *                   'validators' => [
+ *                       ]
+ *               ],
+ *               self::Stop => [
+ *                   'from' => self::InProgress,
+ *                   'to' => self::Open,
+ *                   'text' => 'Stop Progress',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::ResolveIssue => [
+ *                   'from' => self::InProgress,
+ *                   'to' => self::Resolved,
+ *                   'text' => 'Resolve Issue',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::ReopenIssue => [
+ *                   'from' => self::Resolved,
+ *                   'to' => self::Reopen,
+ *                   'text' => 'Reopen Issue',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::ResolveReopened => [
+ *                   'from' => self::Reopen,
+ *                   'to' => self::Resolved,
+ *                   'text' => 'Resolve Issue',
+ *                   'extra' => [
+ *                       'fromPort' => 'R',
+ *                       'toPort' => 'R',
+ *                       'points' => []
+ *                   ],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::CloseIssue => [
+ *                   'from' => self::InProgress,
+ *                   'to' => self::Closed,
+ *                   'text' => 'Close Issue',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::CloseReopened => [
+ *                   'from' => self::Reopen,
+ *                   'to' => self::Closed,
+ *                   'text' => 'Close Issue',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *           ],
+ *       ],
+ *       'preperation' => [
+ *           'property_path' => 'preperation_status',
+ *           'text' => 'Preperation Status Workflow',
+ *           'steps' => [
+ *               self::ToAssign => [
+ *                   'text' => 'To Assign',
+ *                   'extra' => []
+ *               ],
+ *               self::Assigned => [
+ *                   'text' => 'Assigned',
+ *                   'extra' => []
+ *               ],
+ *               self::WIP => [
+ *                   'text' => 'Work In Progress',
+ *                   'extra' => []
+ *               ],
+ *               self::AwaitStatusResolve => [
+ *                   'text' => 'Await default workflow to resolve',
+ *                   'extra' => []
+ *               ],
+ *               self::Finish => [
+ *                   'text' => 'Finish Prepartion',
+ *                   'extra' => []
+ *               ],
+ *               self::ClosedPreparation => [
+ *                   'text' => 'Preperation Finished',
+ *                   'extra' => []
+ *               ],
+ *           ],
+ *           'transitions' => [
+ *               self::AssignPreparation => [
+ *                   'from' => self::ToAssign,
+ *                   'to' => self::Assigned,
+ *                   'text' => 'Assign Preparation',
+ *                   'extra' => [],
+ *                   'callbacks' => [],
+ *                   'validators' => []
+ *               ],
+ *               self::SetWIP => [
+ *                   'from' => self::Assigned,
+ *                   'to' => self::WIP,
+ *                   'text' => 'Work in progress',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::Wait => [
+ *                   'from' => self::WIP,
+ *                   'to' => self::AwaitStatusResolve,
+ *                   'text' => 'Resolve Issue',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *               self::FinishPreparation => [
+ *                   'from' => self::AwaitStatusResolve,
+ *                   'to' => self::Finish,
+ *                   'text' => 'Finish preparation',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => [
+ *                       [
+ *                           'status' => 'gte:' . self::Resolved,
+ *                       ]
+ *                   ]
+ *               ],
+ *               self::ClosePrepartion => [
+ *                   'from' => self::Finish,
+ *                   'to' => self::ClosedPreparation,
+ *                   'text' => 'Close preparation',
+ *                   'extra' => [],
+ *                   'callbacks' => [
+ *                       'pre' => [],
+ *                       'post' => []
+ *                   ],
+ *                   'validators' => []
+ *               ],
+ *           ],
+ *       ],
+ */
