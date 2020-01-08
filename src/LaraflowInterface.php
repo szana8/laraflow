@@ -49,4 +49,11 @@ interface LaraflowInterface
      * @return array
      */
     public function getPossibleTransitions();
+
+    /**
+     * Return the fieldname of the model this statemachine operates on.
+     *
+     * @return string
+     */
+    public function getStateField();
 }

@@ -1,0 +1,34 @@
+<?php
+
+namespace DummyNamespace;
+
+use szana8\Laraflow\Events\LaraflowEvents;
+
+class DummyClass
+{
+    /**
+     * Register the listeners for the subscriber.
+     *
+     * @param  \Illuminate\Events\Dispatcher  $events
+     */
+    public function subscribe($events)
+    {
+        /*
+        $events->listen(
+            LaraflowEvents::PRE_TRANSITION,
+        );
+        */
+
+        /*
+        $events->listen(
+            LaraflowEvents::CAN_TRANSITION,
+        );
+        */
+
+        /*
+        $events->listen(
+            LaraflowEvents::POST_TRANSITION,
+        );
+        */
+    }
+}

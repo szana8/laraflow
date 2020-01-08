@@ -19,7 +19,7 @@ class Laraflow implements LaraflowInterface
     /**
      * Configuration array.
      */
-    protected $configuration;
+    protected $configuration = [];
 
     /**
      * @var
@@ -33,10 +33,11 @@ class Laraflow implements LaraflowInterface
 
     /**
      * Workflow constructor.
+     *
      * @param $object
      * @param $configuration
      */
-    public function __construct($object, $configuration)
+    public function __construct($object, array $configuration)
     {
         $this->object = $object;
         isset($configuration['property_path']) ?: $configuration['property_path'] = 'state';
@@ -55,18 +56,23 @@ class Laraflow implements LaraflowInterface
      */
     public function can($transition)
     {
-        if (! isset($this->configuration['transitions'][$transition])) {
+        if (!isset($this->configuration['transitions'][$transition])) {
             throw new LaraflowException(__('laraflow::exception.missing_transition', ['transition' => $transition]));
         }
 
-        if (collect($this->configuration['transitions'])->where('from', $this->getActualStep())->count() == 0) {
+        if (collect($this->configuration['transitions'])->where('from', $this->getActualStep())->isEmpty()) {
             return false;
+        }
+
+        if ($this->configuration['transitions'][$transition]['from'] != $this->getActualStep()) {
+            throw new LaraflowException(__('laraflow::exception.invalid_transition', ['transition' => $transition]));
         }
 
         event(LaraflowEvents::CAN_TRANSITION, $this);
 
         return true;
     }
+
 
     /**
      * Applies the transition on the underlying object.
@@ -82,8 +88,8 @@ class Laraflow implements LaraflowInterface
 
         tap($this->setLaraflowEvent($transition), function ($event) use ($transition) {
             $this->firePreEvents($event)
-                 ->updateActualStep($this->configuration['transitions'][$transition]['to'])
-                 ->firePostEvents($event);
+                ->updateActualStep($this->configuration['transitions'][$transition]['to'])
+                ->firePostEvents($event);
         });
     }
 
@@ -135,6 +141,17 @@ class Laraflow implements LaraflowInterface
             })->toArray();
     }
 
+
+    /**
+     * Return the fieldname of the model this statemachine operates on.
+     *
+     * @return string
+     */
+    public function getStateField()
+    {
+        return $this->configuration['property_path'];
+    }
+
     /**
      * Set a new state to the underlying object.
      *
@@ -146,7 +163,7 @@ class Laraflow implements LaraflowInterface
      */
     protected function updateActualStep($step)
     {
-        if (! array_key_exists($step, $this->configuration['steps'])) {
+        if (!array_key_exists($step, $this->configuration['steps'])) {
             throw new LaraflowException(__('laraflow::exception.missing_step', ['step' => $step]));
         }
 
@@ -165,7 +182,7 @@ class Laraflow implements LaraflowInterface
     {
         event(LaraflowEvents::PRE_TRANSITION, $event);
 
-        if (! $this->callValidators($event)) {
+        if (!$this->getValidators($event)) {
             throw LaraflowValidatorException::withMessages($this->validatorErrors);
         }
         $this->callCallbacks($event, 'pre');
@@ -174,6 +191,8 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Fire all of the post events after the status has been changed.
+     *
      * @param $event
      * @return Laraflow
      */
@@ -187,20 +206,22 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Function for the custom callback calls.
+     *
      * @param $event
      * @param $position
      * @return bool
      */
     protected function callCallbacks($event, $position)
     {
-        if (! isset($event->getConfig()['callbacks'][$position])) {
+        if (!isset($event->getConfig()['callbacks'][$position])) {
             report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $position])));
 
             return false;
         }
 
         foreach ($event->getConfig()['callbacks'][$position] as $key => &$callback) {
-            if ((! class_exists($callback)) && (! $callback instanceof LaraflowCallbackInterface)) {
+            if ((!class_exists($callback)) && (!$callback instanceof LaraflowCallbackInterface)) {
                 report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $callback])));
                 continue;
             }
@@ -211,25 +232,27 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Get the attribute validators before the status change and
+     * validate the attribtutes.
+     *
      * @param $event
      * @return bool
      */
-    protected function callValidators($event)
+    protected function getValidators($event)
     {
-        if (! isset($event->getConfig()['validators'])) {
+        if (!isset($event->getConfig()['validators'])) {
             return false;
         }
 
         foreach ($event->getConfig()['validators'] as $key => $rules) {
             $class = is_numeric($key) ? LaraflowValidator::class : $key;
 
-            if ((! class_exists($class)) && (! $class instanceof LaraflowValidatorInterface)) {
+            if ((!class_exists($class)) && (!$class instanceof LaraflowValidatorInterface)) {
                 array_push($this->validatorErrors, [[__('laraflow::validation.missing_validator_class', ['class' => $class])]]);
                 continue;
             }
 
-            $app = new $class();
-            $result = $app->validate($event->getStateMachine()->getObject()->getAttributes(), $rules);
+            $result = $this->callValidators($class, $event->getStateMachine()->getObject()->getAttributes(), $rules);
 
             if ($result !== true) {
                 array_push($this->validatorErrors, $result);
@@ -240,6 +263,35 @@ class Laraflow implements LaraflowInterface
     }
 
     /**
+     * Decide to call the original Laravel validation,
+     * or use the custom validator class by the user.
+     *
+     * @param $class
+     * @param $attributes
+     * @param $rules
+     * @return mixed
+     */
+    protected function callValidators($class, $attributes, $rules)
+    {
+        foreach ($rules as $attribute => $rule) {
+            if (array_key_exists($rule, config('laraflow')['custom_validators'])) {
+
+                $class = config('laraflow')['custom_validators'][$rule]['validator'];
+
+                break;
+            }
+        }
+
+        $app = new $class();
+        $result = $app->validate($attributes, $rules);
+
+        return $result;
+    }
+
+    /**
+     * Reutrn an event object for the custom events. The users
+     * can reach the workflow attributes with this.
+     *
      * @param $transition
      * @return LaraflowTransitionEvents
      */

@@ -10,21 +10,22 @@ trait Flowable
     /**
      * StateMachine.
      */
-    protected $laraflowInstance;
+    protected $laraflowInstance = [];
 
     /**
      * Create a singleton StateMachine instance form the specified config.
      *
+     * @param mixed $name Name of the Statemachine within the configuration.
      * @return Laraflow
      * @throws \Exception
      */
-    public function laraflowInstance()
+    public function laraflowInstance($sm_name = 'default')
     {
-        if (! $this->laraflowInstance) {
-            $this->laraflowInstance = new Laraflow($this, $this->getLaraflowStates());
+        if (!isset($this->laraflowInstance[$sm_name])) {
+            $this->laraflowInstance[$sm_name] = new Laraflow($this, $this->getLaraflowStates($sm_name));
         }
 
-        return $this->laraflowInstance;
+        return $this->laraflowInstance[$sm_name];
     }
 
     /**
@@ -34,9 +35,9 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function flowStepIs()
+    public function flowStepIs($sm_name = 'default')
     {
-        return $this->laraflowInstance()->getActualStep();
+        return $this->laraflowInstance($sm_name)->getActualStep();
     }
 
     /**
@@ -46,9 +47,9 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function transition($transition)
+    public function transition($transition, $sm_name = 'default')
     {
-        return $this->laraflowInstance()->apply($transition);
+        return $this->laraflowInstance($sm_name)->apply($transition);
     }
 
     /**
@@ -58,13 +59,13 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function getStepName($state)
+    public function getStepName($state, $sm_name = 'default')
     {
-        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$state]['text'])) {
+        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$state]['text'])) {
             return $state;
         }
 
-        return $this->laraflowInstance()->getConfiguration()['steps'][$state]['text'];
+        return $this->laraflowInstance($sm_name)->getConfiguration()['steps'][$state]['text'];
     }
 
     /**
@@ -72,9 +73,9 @@ trait Flowable
      *
      * @return mixed
      */
-    public function getActualStepName()
+    public function getActualStepName($sm_name = 'default')
     {
-        return $this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getActualStep()]['text'];
+        return $this->laraflowInstance($sm_name)->getConfiguration()['steps'][$this->laraflowInstance($sm_name)->getActualStep()]['text'];
     }
 
     /**
@@ -84,13 +85,13 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function getFromStepNameById($stateId)
+    public function getFromStepNameById($stateId, $sm_name = 'default')
     {
-        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']])) {
+        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$this->laraflowInstance($sm_name)->getConfiguration()['transitions'][$stateId]['from']])) {
             return $stateId;
         }
 
-        return $this->laraflowInstance()->getConfiguration()['steps'][$this->laraflowInstance()->getConfiguration()['transitions'][$stateId]['from']]['text'];
+        return $this->laraflowInstance($sm_name)->getConfiguration()['steps'][$this->laraflowInstance($sm_name)->getConfiguration()['transitions'][$stateId]['from']]['text'];
     }
 
     /**
@@ -100,13 +101,13 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function getToStepNameById($stateId)
+    public function getToStepNameById($stateId, $sm_name = 'default')
     {
-        if (! isset($this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'])) {
+        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$stateId]['text'])) {
             return $stateId;
         }
 
-        return $this->laraflowInstance()->getConfiguration()['steps'][$stateId]['text'];
+        return $this->laraflowInstance($sm_name)->getConfiguration()['steps'][$stateId]['text'];
     }
 
     /**
@@ -116,9 +117,9 @@ trait Flowable
      * @return mixed
      * @throws \Exception
      */
-    public function transitionAllowed($transition)
+    public function transitionAllowed($transition, $sm_name = 'default')
     {
-        return $this->laraflowInstance()->can($transition);
+        return $this->laraflowInstance($sm_name)->can($transition);
     }
 
     /**
@@ -137,11 +138,12 @@ trait Flowable
      *
      * @return mixed
      */
-    public function history()
+    public function history($sm_name = 'default')
     {
-        return $this->getMorphHistoryData()->get()->each(function ($item, $key) {
-            $item['fromStepName'] = $this->getFromStepNameById($item['transition']);
-            $item['toStepName'] = $this->getToStepNameById($item['to']);
+        $laraflowField = $this->laraflowInstance($sm_name)->getConfiguration()['property_path'];
+        return $this->getMorphHistoryData()->where('field', $laraflowField)->get()->each(function ($item, $key) use ($sm_name) {
+            $item['fromStepName'] = $this->getFromStepNameById($item['transition'], $sm_name);
+            $item['toStepName'] = $this->getToStepNameById($item['to'], $sm_name);
         });
     }
 
