@@ -71,6 +71,7 @@ class SampleClass extends Model {
 This function has to return the array of the configuration!
 
 The configuration array, when just using 1 state machine in you model must of the form:
+
 ```php
 [
     'default' => [
@@ -80,6 +81,7 @@ The configuration array, when just using 1 state machine in you model must of th
 ```
 
 When you have multiple statemachines in your model use the following form:
+
 ```php
 [
     'statemachine_name1' => [ // might also be called 'default' !
@@ -113,16 +115,16 @@ the _key_ attribute which comes from the _getPossibleTransitions()_ function.
 
 You can query the history of the record just call the history function in your model like this:
 
-```
+```php
 /**
-     * Return historical records.
-     *
-     * @return string
-     */
-    public function getFlowHistoryAttribute()
-    {
-        return $this->history();
-    }
+* Return historical records.
+*
+* @return string
+*/
+public function getFlowHistoryAttribute()
+{
+return $this->history();
+}
 ```
 
 ## Events
@@ -148,6 +150,77 @@ throws a LaraflowValidatorException exception with the error message(s) array.
 
 You can define your own validator if you create a class which implements the
 _LaraflowValidatorInterface_.
+
+```php
+class TestValidator extends Rule implements LaraflowValidatorInterface
+{
+    /**
+     * Validate the attributes with the given rules.
+     *
+     * @param array $attributes
+     * @param array $rules
+     * @return mixed
+     */
+    public function validate(array $attributes, array $rules)
+    {
+        if (1 == 2) {
+            return true;
+        }
+
+        throw LaraflowValidatorException::withMessages(['Validation error']);
+    }
+}
+```
+
+### Commands
+
+#### Subscriber generation
+
+You can create subscribers for the default Laraflow events with artisan command.
+
+```properties
+foo@bar: php artian laraflow:make subscriber --NameOfTheSubscriber
+```
+
+After the run you can find the new subscriber class in the App\Listener directory. To create a callback class you have to create a class which implements the _LaraflowCallbackInterface_ and add the class to the neessary event in the subscriber.
+
+Example:
+
+```php
+class TestPreCallback implements LaraflowCallbackInterface
+{
+    public function handle(LaraflowTransitionEvents $event)
+    {
+        CallbackTest::insert(['message' => json_encode($event->convertToArray())]);
+    }
+}
+
+class LaraflowEventSubscriber
+{
+    /**
+     * Register the listeners for the subscriber.
+     *
+     * @param  \Illuminate\Events\Dispatcher  $events
+     */
+    public function subscribe($events)
+    {
+        $events->listen(
+            LaraflowEvents::PRE_TRANSITION,
+            'App\TestPreCallback@handle'
+        );
+    }
+}
+```
+
+#### Custom validator generation
+
+To generate a validator class skeleton for the custom validation you use this command:
+
+```properties
+foo@bar: php artian laraflow:make validator --NameOfTheValidator
+```
+
+After the run you can find the new class in the App\Validators directory.
 
 #### Credits
 
