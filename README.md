@@ -70,39 +70,12 @@ class SampleClass extends Model {
 
 This function has to return the array of the configuration!
 
-The configuration array, when just using 1 state machine in you model must of the form:
-```php
-[
-    'default' => [
-        //... see published configuration example in config directory.
-    ]
-];
-```
-
-When you have multiple statemachines in your model use the following form:
-```php
-[
-    'statemachine_name1' => [ // might also be called 'default' !
-        // ...  see published configuration example in config directory
-    ],
-    'statemachine_name2' => [
-        // ...  see published configuration example in config directory
-    ],
-]
-```
-
 ##### Step 4
 
 If you want to change the status of the Eloquent object you can use the
 
 ```php
-// when using only 1 or at least 'default' named state machine.
 $object->transiton($new_status);
-// when using only 1 not named state machine.
-$statemachineName1 = 'statemachine_name1'
-$object->transiton($new_status, $statemachineName1);
-$statemachineName2 = 'default'
-$object->transiton($new_status, $statemachineName2);
 $object->save();
 ```
 
