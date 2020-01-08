@@ -21,7 +21,7 @@ trait Flowable
      */
     public function laraflowInstance($sm_name = 'default')
     {
-        if (!isset($this->laraflowInstance[$sm_name])) {
+        if (! isset($this->laraflowInstance[$sm_name])) {
             $this->laraflowInstance[$sm_name] = new Laraflow($this, $this->getLaraflowStates($sm_name));
         }
 
@@ -61,7 +61,7 @@ trait Flowable
      */
     public function getStepName($state, $sm_name = 'default')
     {
-        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$state]['text'])) {
+        if (! isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$state]['text'])) {
             return $state;
         }
 
@@ -87,7 +87,7 @@ trait Flowable
      */
     public function getFromStepNameById($stateId, $sm_name = 'default')
     {
-        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$this->laraflowInstance($sm_name)->getConfiguration()['transitions'][$stateId]['from']])) {
+        if (! isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$this->laraflowInstance($sm_name)->getConfiguration()['transitions'][$stateId]['from']])) {
             return $stateId;
         }
 
@@ -103,7 +103,7 @@ trait Flowable
      */
     public function getToStepNameById($stateId, $sm_name = 'default')
     {
-        if (!isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$stateId]['text'])) {
+        if (! isset($this->laraflowInstance($sm_name)->getConfiguration()['steps'][$stateId]['text'])) {
             return $stateId;
         }
 
@@ -141,6 +141,7 @@ trait Flowable
     public function history($sm_name = 'default')
     {
         $laraflowField = $this->laraflowInstance($sm_name)->getConfiguration()['property_path'];
+
         return $this->getMorphHistoryData()->where('field', $laraflowField)->get()->each(function ($item, $key) use ($sm_name) {
             $item['fromStepName'] = $this->getFromStepNameById($item['transition'], $sm_name);
             $item['toStepName'] = $this->getToStepNameById($item['to'], $sm_name);
