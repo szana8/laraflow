@@ -9,7 +9,7 @@ class LaraflowHistory extends Model
     /**
      * @var array
      */
-    protected $fillable = ['transition', 'from', 'user_id', 'to', 'flowable_type', 'flowable_id'];
+    protected $fillable = ['transition', 'from', 'user_id', 'to', 'flowable_type', 'flowable_id', 'field'];
 
     /**
      * A state belong to the issue.

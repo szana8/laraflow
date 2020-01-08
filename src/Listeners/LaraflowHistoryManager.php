@@ -19,6 +19,7 @@ class LaraflowHistoryManager implements LaraflowCallbackInterface
         $model = $sm->getObject();
 
         $model->addHistoryLine([
+            'field' => $sm->getStateField(),
             'transition' => $event->getTransition(),
             'to' => $sm->getActualStep()
         ]);

@@ -56,7 +56,7 @@ class Laraflow implements LaraflowInterface
      */
     public function can($transition)
     {
-        if (! isset($this->configuration['transitions'][$transition])) {
+        if (!isset($this->configuration['transitions'][$transition])) {
             throw new LaraflowException(__('laraflow::exception.missing_transition', ['transition' => $transition]));
         }
 
@@ -68,6 +68,7 @@ class Laraflow implements LaraflowInterface
 
         return true;
     }
+
 
     /**
      * Applies the transition on the underlying object.
@@ -136,6 +137,17 @@ class Laraflow implements LaraflowInterface
             })->toArray();
     }
 
+
+    /**
+     * Return the fieldname of the model this statemachine operates on.
+     *
+     * @return string
+     */
+    public function getStateField()
+    {
+        return $this->configuration['property_path'];
+    }
+
     /**
      * Set a new state to the underlying object.
      *
@@ -147,7 +159,7 @@ class Laraflow implements LaraflowInterface
      */
     protected function updateActualStep($step)
     {
-        if (! array_key_exists($step, $this->configuration['steps'])) {
+        if (!array_key_exists($step, $this->configuration['steps'])) {
             throw new LaraflowException(__('laraflow::exception.missing_step', ['step' => $step]));
         }
 
@@ -198,14 +210,14 @@ class Laraflow implements LaraflowInterface
      */
     protected function callCallbacks($event, $position)
     {
-        if (! isset($event->getConfig()['callbacks'][$position])) {
+        if (!isset($event->getConfig()['callbacks'][$position])) {
             report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $position])));
 
             return false;
         }
 
         foreach ($event->getConfig()['callbacks'][$position] as $key => &$callback) {
-            if ((! class_exists($callback)) && (! $callback instanceof LaraflowCallbackInterface)) {
+            if ((!class_exists($callback)) && (!$callback instanceof LaraflowCallbackInterface)) {
                 report(new LaraflowException(__('laraflow::exception.missing_callback', ['callback' => $callback])));
                 continue;
             }
@@ -224,14 +236,14 @@ class Laraflow implements LaraflowInterface
      */
     protected function getValidators($event)
     {
-        if (! isset($event->getConfig()['validators'])) {
+        if (!isset($event->getConfig()['validators'])) {
             return false;
         }
 
         foreach ($event->getConfig()['validators'] as $key => $rules) {
             $class = is_numeric($key) ? LaraflowValidator::class : $key;
 
-            if ((! class_exists($class)) && (! $class instanceof LaraflowValidatorInterface)) {
+            if ((!class_exists($class)) && (!$class instanceof LaraflowValidatorInterface)) {
                 array_push($this->validatorErrors, [[__('laraflow::validation.missing_validator_class', ['class' => $class])]]);
                 continue;
             }
