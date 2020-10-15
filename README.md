@@ -3,12 +3,12 @@
 Laraflow is a standard workflow package for Laravel Eloquent objects. You can define your steps,
 the transition between the them, callbacks, and validators.
 
-[![Latest Stable Version](https://poser.pugx.org/szana8/laraflow/v/stable)](https://packagist.org/packages/szana8/laraflow)
+<p align="center">
 [![StyleCI](https://github.styleci.io/repos/141295529/shield?branch=master)](https://github.styleci.io/repos/141295529)
-[![Total Downloads](https://poser.pugx.org/szana8/laraflow/downloads)](https://packagist.org/packages/szana8/laraflow)
-[![Monthly Downloads](https://poser.pugx.org/szana8/laraflow/d/monthly)](https://packagist.org/packages/szana8/laraflow)
-[![Daily Downloads](https://poser.pugx.org/szana8/laraflow/d/daily)](https://packagist.org/packages/szana8/laraflow)
-[![License](https://poser.pugx.org/szana8/laraflow/license)](https://packagist.org/packages/szana8/laraflow)
+<a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/dt/szana8/laraflow" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/v/szana8/laraflow" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/l/szana8/laraflow" alt="License"></a>
+</p>
 
 ### Installation (via composer)
 
