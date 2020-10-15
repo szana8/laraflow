@@ -4,7 +4,6 @@ Laraflow is a standard workflow package for Laravel Eloquent objects. You can de
 the transition between the them, callbacks, and validators.
 
 <p align="center">
-[![StyleCI](https://github.styleci.io/repos/141295529/shield?branch=master)](https://github.styleci.io/repos/141295529)
 <a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/dt/szana8/laraflow" alt="Total Downloads"></a>
 <a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/v/szana8/laraflow" alt="Latest Stable Version"></a>
 <a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/l/szana8/laraflow" alt="License"></a>
