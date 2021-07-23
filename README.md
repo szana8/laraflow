@@ -2,7 +2,7 @@
 # Laravel Workflow Package
 
 Laraflow is a standard workflow package for Laravel Eloquent objects. You can define your steps,
-the transition between the them, callbacks, and validators.
+the transition between them, callbacks, and validators.
 
 <p align="center">
 <a href="https://packagist.org/packages/szana8/laraflow"><img src="https://img.shields.io/packagist/dt/szana8/laraflow" alt="Total Downloads"></a>
