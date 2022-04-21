@@ -49,9 +49,9 @@ class Laraflow implements LaraflowInterface
     /**
      * Can the transition be applied on the underlying object.
      *
-     * @param string $transition
-     *
+     * @param  string  $transition
      * @return bool
+     *
      * @throws LaraflowException
      */
     public function can($transition)
@@ -76,9 +76,9 @@ class Laraflow implements LaraflowInterface
     /**
      * Applies the transition on the underlying object.
      *
-     * @param string $transition Transition to apply
-     *
+     * @param  string  $transition  Transition to apply
      * @return void If the transition has been applied or not (in case of soft apply or rejected pre transition event)
+     *
      * @throws LaraflowException
      */
     public function apply($transition)
@@ -153,9 +153,9 @@ class Laraflow implements LaraflowInterface
     /**
      * Set a new state to the underlying object.
      *
-     * @param string $step
-     *
+     * @param  string  $step
      * @return Laraflow
+     *
      * @throws SMException
      * @throws LaraflowException
      */
