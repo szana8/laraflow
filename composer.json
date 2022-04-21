@@ -10,9 +10,9 @@
   ],
   "minimum-stability": "dev",
   "require": {
-    "php": "^5.6.4 || ^7.0",
-    "illuminate/support": "5.4.* || 5.5.* || 5.6.* || 5.7.* || 6.* || 7.* || 8.*",
-    "illuminate/database": "5.4.* || 5.5.* || 5.6.* || 5.7.* || 6.* || 7.* || 8.*"
+    "php": "^8.0",
+    "illuminate/support": "9.*",
+    "illuminate/database": "9.*"
   },
   "require-dev": {
     "mockery/mockery": "^0.9.6",
@@ -25,7 +25,7 @@
   },
   "extra": {
     "branch-alias": {
-      "dev-master": "0.1-dev"
+      "dev-master": "1.1-dev"
     },
     "laravel": {
       "providers": [

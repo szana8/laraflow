@@ -165,7 +165,7 @@ class Laraflow implements LaraflowInterface
             throw new LaraflowException(__('laraflow::exception.missing_step', ['step' => $step]));
         }
 
-        $this->object->setAttribute($this->configuration['property_path'], $step);
+        $this->object->setAttribute($this->configuration['property_path'], $step)->update();
 
         return $this;
     }
