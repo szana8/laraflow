@@ -25,7 +25,6 @@ php artisan migrate
 ```
 
 After Laravel 5.5 you don't need to manually add the service provider to the config/app.php.
-You can find a sample test project with this package in here: https://github.com/szana8/laravel-workflow-package
 
 ### Configuration file
 
