@@ -12,7 +12,7 @@ the transition between them, callbacks, and validators.
 
 ### Installation (via composer)
 
-You can install the package via composer. The package require Laravel 5.5 or higher
+You can install the package via composer. The package require Laravel 8 or higher
 
 ```php
 composer require szana8/Laraflow
