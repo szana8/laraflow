@@ -32,10 +32,10 @@ class LaraflowTransitionEvents
     protected $rejected = false;
 
     /**
-     * @param string $transition Name of the transition being applied
-     * @param string $fromState State from which the transition is applied
-     * @param array $configuration Configuration of the transition
-     * @param LaraflowInterface $workflow
+     * @param  string  $transition  Name of the transition being applied
+     * @param  string  $fromState  State from which the transition is applied
+     * @param  array  $configuration  Configuration of the transition
+     * @param  LaraflowInterface  $workflow
      */
     public function __construct($transition, $fromState, array $configuration, LaraflowInterface $workflow)
     {
@@ -80,7 +80,7 @@ class LaraflowTransitionEvents
     }
 
     /**
-     * @param bool $reject
+     * @param  bool  $reject
      */
     public function setRejected($reject = true)
     {

@@ -10,7 +10,7 @@ class LaraflowHistoryManager implements LaraflowCallbackInterface
     /**
      * Handle the event.
      *
-     * @param LaraflowTransitionEvents $event
+     * @param  LaraflowTransitionEvents  $event
      * @return void
      */
     public function handle(LaraflowTransitionEvents $event)
