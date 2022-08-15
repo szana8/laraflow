@@ -15,8 +15,9 @@ trait Flowable
     /**
      * Create a singleton StateMachine instance form the specified config.
      *
-     * @param mixed $name Name of the Statemachine within the configuration.
+     * @param  mixed  $name  Name of the Statemachine within the configuration.
      * @return Laraflow
+     *
      * @throws \Exception
      */
     public function laraflowInstance($sm_name = 'default')
@@ -33,6 +34,7 @@ trait Flowable
      * the object.
      *
      * @return mixed
+     *
      * @throws \Exception
      */
     public function flowStepIs($sm_name = 'default')
@@ -45,6 +47,7 @@ trait Flowable
      *
      * @param $transition
      * @return mixed
+     *
      * @throws \Exception
      */
     public function transition($transition, $sm_name = 'default')
@@ -57,6 +60,7 @@ trait Flowable
      *
      * @param $state
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getStepName($state, $sm_name = 'default')
@@ -83,6 +87,7 @@ trait Flowable
      *
      * @param $state
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getFromStepNameById($stateId, $sm_name = 'default')
@@ -99,6 +104,7 @@ trait Flowable
      *
      * @param $state
      * @return mixed
+     *
      * @throws \Exception
      */
     public function getToStepNameById($stateId, $sm_name = 'default')
@@ -115,6 +121,7 @@ trait Flowable
      *
      * @param $transition
      * @return mixed
+     *
      * @throws \Exception
      */
     public function transitionAllowed($transition, $sm_name = 'default')
@@ -151,7 +158,7 @@ trait Flowable
     /**
      * Add a history line to the table with the model name and record id.
      *
-     * @param array $transitionData
+     * @param  array  $transitionData
      * @return mixed
      */
     public function addHistoryLine(array $transitionData)
