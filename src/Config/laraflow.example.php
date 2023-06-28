@@ -18,7 +18,7 @@ return [
 
     /*
     | Take the following class constant in you model for named access to workflow
-    | elements. Change names and values as required. Leave space to add items in 
+    | elements. Change names and values as required. Leave space to add items in
     | between.
     |
     | // First worflow status values.
@@ -27,7 +27,7 @@ return [
     | const Reopen = 1130;
     | const Resolved = 1140;
     | const Closed = 1150;
-    | 
+    |
     | // First work transitions
     | const Start = 1510;
     | const Stop = 1520;
@@ -86,14 +86,14 @@ return [
                     'text' => 'Start Progress',
                     'extra' => [],
                     'callbacks' => [
-                        /*  'pre' => [
+                    /*  'pre' => [
                         'App\\TestPreCallback'
                     ],
                     'post' => [
                         'App\\TestPostCallback'
                     ] */],
                     'validators' => [
-                        /*  [
+                    /*  [
                         'title' => 'numeric',
                         'assignee_id' => 'required'
                     ] */]
@@ -177,7 +177,7 @@ return [
                 // ...
             ],
             'transitions' => [
-               // ...
+                // ...
             ],
         ],
     ],
