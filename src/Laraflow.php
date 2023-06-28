@@ -34,8 +34,8 @@ class Laraflow implements LaraflowInterface
     /**
      * Workflow constructor.
      *
-     * @param $object
-     * @param $configuration
+     * @param  $object
+     * @param  $configuration
      */
     public function __construct($object, array $configuration)
     {
@@ -173,7 +173,7 @@ class Laraflow implements LaraflowInterface
     /**
      * Fire all of the pre events before the status has been changed.
      *
-     * @param $event
+     * @param  $event
      * @return Laraflow
      */
     protected function firePreEvents($event)
@@ -191,7 +191,7 @@ class Laraflow implements LaraflowInterface
     /**
      * Fire all of the post events after the status has been changed.
      *
-     * @param $event
+     * @param  $event
      * @return Laraflow
      */
     protected function firePostEvents($event)
@@ -206,8 +206,8 @@ class Laraflow implements LaraflowInterface
     /**
      * Function for the custom callback calls.
      *
-     * @param $event
-     * @param $position
+     * @param  $event
+     * @param  $position
      * @return bool
      */
     protected function callCallbacks($event, $position)
@@ -233,7 +233,7 @@ class Laraflow implements LaraflowInterface
      * Get the attribute validators before the status change and
      * validate the attribtutes.
      *
-     * @param $event
+     * @param  $event
      * @return bool
      */
     protected function getValidators($event)
@@ -264,9 +264,9 @@ class Laraflow implements LaraflowInterface
      * Decide to call the original Laravel validation,
      * or use the custom validator class by the user.
      *
-     * @param $class
-     * @param $attributes
-     * @param $rules
+     * @param  $class
+     * @param  $attributes
+     * @param  $rules
      * @return mixed
      */
     protected function callValidators($class, $attributes, $rules)
@@ -288,7 +288,7 @@ class Laraflow implements LaraflowInterface
      * Reutrn an event object for the custom events. The users
      * can reach the workflow attributes with this.
      *
-     * @param $transition
+     * @param  $transition
      * @return LaraflowTransitionEvents
      */
     protected function setLaraflowEvent($transition)

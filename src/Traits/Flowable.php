@@ -45,7 +45,7 @@ trait Flowable
     /**
      * Apply the specified transition.
      *
-     * @param $transition
+     * @param  $transition
      * @return mixed
      *
      * @throws \Exception
@@ -58,7 +58,7 @@ trait Flowable
     /**
      * Return the name of the state.
      *
-     * @param $state
+     * @param  $state
      * @return mixed
      *
      * @throws \Exception
@@ -85,7 +85,7 @@ trait Flowable
     /**
      * Return the name of the stateId.
      *
-     * @param $state
+     * @param  $state
      * @return mixed
      *
      * @throws \Exception
@@ -102,7 +102,7 @@ trait Flowable
     /**
      * Return the name of the stateId.
      *
-     * @param $state
+     * @param  $state
      * @return mixed
      *
      * @throws \Exception
@@ -119,7 +119,7 @@ trait Flowable
     /**
      * Check the transition is possible or not.
      *
-     * @param $transition
+     * @param  $transition
      * @return mixed
      *
      * @throws \Exception
